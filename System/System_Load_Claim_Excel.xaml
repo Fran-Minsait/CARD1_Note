@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1186,1001</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1186,1249</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>System_Load_Claim_Excel_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="23">
@@ -65,7 +65,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="System_Load_Claim_Excel" sap:VirtualizedContainerService.HintSize="599,836" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="System_Load_Claim_Excel" sap:VirtualizedContainerService.HintSize="599,1084" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dtExtractedExcel" />
       <Variable x:TypeArguments="sd:DataRow" Name="dtRow" />
@@ -76,6 +76,11 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <If Condition="[File.Exists(Path.Combine(in_stringPath, &quot;Excels&quot;, in_stringNSinistro + &quot;.xlsx&quot; ))]" sap:VirtualizedContainerService.HintSize="557,208" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <Throw DisplayName="Throw E-02001" Exception="[New BusinessRuleException(in_Config(&quot;Message_E-02001&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+      </If.Then>
+    </If>
     <ui:ReadRange AddHeaders="False" DataTable="[dtExtractedExcel]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="557,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="D33:D36" SheetName="Foglio1" WorkbookPath="[Path.Combine(in_stringPath, &quot;Excels&quot;, in_stringNSinistro + &quot;.xlsx&quot; )]" />
     <ui:BuildDataTable DataTable="[out_dtNoteInfo]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="557,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Argomento&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Oggetto&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;RelativaA&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Testo&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
     <Assign DisplayName="Get an empty row for the table" sap:VirtualizedContainerService.HintSize="557,60" sap2010:WorkflowViewState.IdRef="Assign_2">
@@ -94,7 +99,7 @@
           </ActivityAction.Argument>
           <If Condition="[value(0) is Nothing]" DisplayName="If | Value in excel is empty or null" sap:VirtualizedContainerService.HintSize="507,208" sap2010:WorkflowViewState.IdRef="If_1">
             <If.Then>
-              <Throw DisplayName="Throw E-0001" Exception="[New BusinessRuleException(in_Config(&quot;Message_E-0001&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+              <Throw DisplayName="Throw E-02002" Exception="[New BusinessRuleException(in_Config(&quot;Message_E-02002&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
             </If.Then>
             <If.Else>
               <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
